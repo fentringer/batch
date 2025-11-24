@@ -4,7 +4,10 @@ import PersonList from './components/PersonList';
 import ETLButton from './components/ETLButton';
 import './App.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+// In Docker, nginx proxies /api to backend:8080
+// In local dev, use localhost:8080
+const API_URL = process.env.REACT_APP_API_URL
+  || (window.location.hostname === 'localhost' ? 'http://localhost:8080' : '/api');
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -171,5 +174,3 @@ function App() {
 }
 
 export default App;
-
-
